@@ -1,0 +1,87 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 0
+}
+
+.biggerGrid{
+  display: flex;
+  border: 0px solid black;
+  width: 600px;
+  height: 600px;
+  flex-wrap: wrap;
+  padding: 0;
+}
+
+.biggerGrid div {
+  display: flex;
+  width: 33%;
+  height: 33%;
+  /* border:1px solid black; */
+  flex-wrap: wrap;
+  padding: 20px;
+}
+
+
+.blue {
+  background-image: url(./media/Heavy_red__x_.png);
+}
+
+.red {
+  background-image: url(./media/O_emojii.png);
+}
+
+.cero {
+  border-right: 3px solid black;
+}
+
+.one {
+  border-left: 3px solid black;
+  border-right:3px solid black;
+  
+}
+
+.two {
+  border-left: 3px solid black;
+  
+}
+
+.three {
+  border-top: 3px solid black;
+  border-right: 3px solid black;
+  padding: 0;
+}
+
+.four {
+  border: 3px solid black;
+  border-bottom:  0px;
+}
+
+.five {
+  border-top: 3px solid black;
+  border-left: 3px solid black;
+
+}
+
+.six {
+  border-top: 3px solid black;
+  border-right: 3px solid black;
+}
+
+.seven {
+  border-top: 3px solid black;
+  border-left: 3px solid black;
+  border-right: 3px solid black;
+}
+
+.eight {
+  border-left: 3px solid black;
+  border-top: 3px solid black;
+}

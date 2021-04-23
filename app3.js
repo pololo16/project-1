@@ -1,10 +1,4 @@
 // * Tic Tac Toe
-
-
-
-//! Make it look nice
-//! reset game
-//! stupid bug
 let mainGame = []
 let playerOneSelectionBigger = []
 let playerTwoSelectionBigger = []
@@ -23,11 +17,6 @@ let winsPlayerOne = 0
 let winsPlayerTwo = 0
 const playerScores = 1
 let tie = 0
-
-// !llamar funcion initVariable
-// !player winsPlayerOne = 0
-// !next box 0
-
 
 function initVariables() {
   mainGame = []

@@ -5,169 +5,119 @@
 //! Make it look nice
 //! reset game
 //! stupid bug
-
-
-const mainGame = [
-  {
-    playerOneSelection: [],
-    playerTwoSelection: [],
-    winner: null,
-  },
-  {
-    playerOneSelection: [],
-    playerTwoSelection: [],
-    winner: null,
-  },
-  {
-    playerOneSelection: [],
-    playerTwoSelection: [],
-    winner: null,
-  },
-  {
-    playerOneSelection: [],
-    playerTwoSelection: [],
-    winner: null,
-  },
-  {
-    playerOneSelection: [],
-    playerTwoSelection: [],
-    winner: null,
-  },
-  {
-    playerOneSelection: [],
-    playerTwoSelection: [],
-    winner: null,
-  },
-  {
-    playerOneSelection: [],
-    playerTwoSelection: [],
-    winner: null,
-  },
-  {
-    playerOneSelection: [],
-    playerTwoSelection: [],
-    winner: null,
-  },
-  {
-    playerOneSelection: [],
-    playerTwoSelection: [],
-    winner: null,
-  },
-]
-
+let mainGame = []
 let playerOneSelectionBigger = []
 let playerTwoSelectionBigger = []
 
 const biggerGrid = document.querySelector('.biggerGrid')
 const playAgain = document.querySelector('#playAgain')
-
+const playerOneScore = document.querySelector('#playerOneScore')
+const playerTwoScore = document.querySelector('#playerTwoScore')
 const width = 9
 const cells = []
 let playerOneTurn = true
 
-// for (let i = 0; i < mainGame.length; i++) {
-//   const gameCells = document.createElement('div')
-//   biggerGrid.appendChild(div)
-//   div.innerHTML = i
-//   cells.push(div)
-let nextGamePlay = null;
+let nextGamePlay = null
 let game
-let eachCell
+let winsPlayerOne = 0
+let winsPlayerTwo = 0
+const playerScores = 1
+let tie = 0
+
+// !llamar funcion initVariable
+// !player winsPlayerOne = 0
+// !next box 0
+
+
+function initVariables() {
+  mainGame = []
+  for (let i = 0; i < width; i++) {
+    mainGame.push({
+      playerOneSelection: [],
+      playerTwoSelection: [],
+      winner: null,
+    })
+  }
+  playerOneSelectionBigger = []
+  playerTwoSelectionBigger = []
+
+  nextGamePlay = null
+  tie = 0
+
+  removeClassGame()
+}
+
+initVariables()
+theWholeGame()
 
 playAgain.addEventListener('click', () => {
-  resetGame()
-  nextGamePlay = null
-  document.getElementById('boxNumber').innerHTML = 'Choose random'
-  
-  playerOneTurn = true
+  initVariables()
+  winsPlayerOne = 0
+  winsPlayerTwo = 0
+  playerOneScore.innerHTML = 0
+  playerTwoScore.innerHTML = 0
 })
-theWholeGame()
+
+function styleGrid(element, i, numbered = null) {
+  if (i === 0) {
+    element.classList.add('cero')
+  } else if (i === 1) {
+    element.classList.add('one')
+  } else if (i === 2) {
+    element.classList.add('two')
+  } else if (i === 3) {
+    element.classList.add('three')
+  } else if (i === 4) {
+    element.classList.add('four')
+    if (numbered != null) {
+      element.innerHTML = numbered + 1
+    }
+  } else if (i === 5) {
+    element.classList.add('five')
+  } else if (i === 6) {
+    element.classList.add('six')
+  } else if (i === 7) {
+    element.classList.add('seven')
+  } else if (i === 8) {
+    element.classList.add('eight')
+  }
+}
+
 function theWholeGame() {
   for (let i = 0; i < width; i++) {
     const grid = document.createElement('div')
     biggerGrid.appendChild(grid)
-    if (i === 0) {
-      grid.classList.add('cero')
-    }
-    if (i === 1) {
-      grid.classList.add('one')
-    }
-    if (i === 2) {
-      grid.classList.add('two')
-    }
-    if (i === 3) {
-      grid.classList.add('three')
-    }
-    if (i === 4) {
-      grid.classList.add('four')
-    }
-    if (i === 5) {
-      grid.classList.add('five')
-    }
-    if (i === 6) {
-      grid.classList.add('six')
-    }
-    if (i === 7) {
-      grid.classList.add('seven')
-    }
-    if (i === 8) {
-      grid.classList.add('eight')
-    }
+    styleGrid(grid, i)
+
     for (let index = 0; index < width; index++) {
       const div = document.createElement('div')
       grid.appendChild(div)
       
       cells.push(div)
-      if (index === 0) {
-        div.classList.add('cero')
-      }
-      if (index === 1) {
-        div.classList.add('one')
-      }
-      if (index === 2) {
-        div.classList.add('two')
-      }
-      if (index === 3) {
-        div.classList.add('three')
-      }
-      if (index === 4) {
-        div.classList.add('four')
-        div.innerHTML = (i + 1)
-      }
-      if (index === 5) {
-        div.classList.add('five')
-      }
-      if (index === 6) {
-        div.classList.add('six')
-      }
-      if (index === 7) {
-        div.classList.add('seven')
-      }
-      if (index === 8) {
-        div.classList.add('eight')
-      }
+      styleGrid(div, index, i)
       // takes div and i
       div.addEventListener('click', (event) => {
-      // console.log(mainGame[i])
-        console.log(i)
-        if (mainGame[i].winner) {
+        for (let i = 0; i < 9; i++) {
+          const tots = biggerGrid.children
+          tots[i].style.backgroundColor = 'white'
+        }
+        if (mainGame[i].winner != null) {
           alert('This game has already been won')
           nextGamePlay = null
-        // } else if (index.classList.contains('blue')){
-        //   alert('This field has already been played')
-        // } else if (index.classList.contains('red')){
-        //   (mainGame[i].classList.contains('blue'))
         } else {
           if (nextGamePlay != null && nextGamePlay != i) {
             game = nextGamePlay + 1
-            alert('You need to play in square ' + game)
+            // alert('You need to play in square ' + game)
+            const dd = biggerGrid.children
+            dd[nextGamePlay].style.backgroundColor = '#ddd'
           } else {
+            // quitar el color
+            // const dd = biggerGrid.children
+            // dd[nextGamePlay].style.backgroundColor = '#fff'
             nextGamePlay = index
-            if (mainGame[index].winner) {
+            if (mainGame[index].winner != null) {
               nextGamePlay = null
             }
-            console.log("P 1:", nextGamePlay)
-            // console.log(event)
             if (playerOneTurn === true) {
               div.classList.add('blue')
               mainGame[i].playerOneSelection.push(index)
@@ -179,20 +129,33 @@ function theWholeGame() {
                 alert('Player 1 wins square ' + game)
                 const resultBigger = includesAll(playerOneSelectionBigger)
                 const eachCell = grid.querySelectorAll('div')
-                // console.log(grid)
                 for (let index = 0; index < eachCell.length; index++) {
                   eachCell[index].classList.remove('red')
                   eachCell[index].classList.add('blue')
                 }
                 if (resultBigger) {
                   alert('Congrutulations! Player 1 wins game!')
-
+                  winsPlayerOne++
+                  playerOneScore.innerHTML = ' ' + (Number(winsPlayerOne))
+                  initVariables()
+                } else {
+                  const cellTotals = playerOneSelectionBigger.length + playerTwoSelectionBigger.length + tie
+                  if (cellTotals == 9) {
+                    alert('Big Tie!')
+                    initVariables()
+                  }
+                }
+              } else {
+                const cellTotals = mainGame[i].playerOneSelection.length + mainGame[i].playerTwoSelection.length
+                if (cellTotals == 9) {
+                  tie++
+                  mainGame[i].winner = false
+                  alert('Tie!')
                 }
               }
             } else {
               div.classList.add('red')
               mainGame[i].playerTwoSelection.push(index)
-              // console.log('else ', mainGame[i].playerTwoSelection)
               const result = includesAll(mainGame[i].playerTwoSelection)
               if (result) {
                 mainGame[i].winner = true
@@ -201,14 +164,28 @@ function theWholeGame() {
                 alert('Player 2 wins square ' + game)
                 const resultBigger = includesAll(playerTwoSelectionBigger)
                 const eachCell = grid.querySelectorAll('div')
-                // console.log(game)
                 for (let index = 0; index < eachCell.length; index++) {
                   eachCell[index].classList.remove('blue')
                   eachCell[index].classList.add('red')
                 }
                 if (resultBigger) {
                   alert('Congrutulations! Player 2 wins game!')
-                  resetGame()
+                  winsPlayerTwo++
+                  playerTwoScore.innerHTML = ' ' + (Number(winsPlayerTwo))
+                  initVariables()
+                } else {
+                  const cellTotals = playerOneSelectionBigger.length + playerTwoSelectionBigger.length + tie
+                  if (cellTotals == 9) {
+                    alert('Big Tie!')
+                    initVariables()
+                  }
+                }
+              } else {
+                const cellTotals = mainGame[i].playerOneSelection.length + mainGame[i].playerTwoSelection.length
+                if (cellTotals == 9) {
+                  tie++
+                  mainGame[i].winner = false
+                  alert('Tie!')
                 }
               }
             }
@@ -218,16 +195,14 @@ function theWholeGame() {
             if (nextGamePlay === null ) {
               document.getElementById('boxNumber').innerHTML = 'Choose random'
             } else {
-              document.getElementById('boxNumber').innerHTML = (Number(nextGamePlay)+1)
+              document.getElementById('boxNumber').innerHTML = (Number(nextGamePlay) + 1)
             }
-          // console.log(index)
           }
         }
       })
     }
   }
 }
-
 
 //Game Working
 
@@ -245,10 +220,8 @@ function checkedSelected(selection) {
 
 function includesAll(selectionArray) {
   for (const numbers of AllWinningCombos) {
-    // console.log('numbers: ', numbers)
     let count = 0
     for (const selection of selectionArray) {
-      // console.log('selection', selection)
       if (numbers.includes(selection)) {
         count++
       }
@@ -271,14 +244,11 @@ const AllWinningCombos = [
   [2, 4, 6]
 ]
 
-function resetGame() {
+function removeClassGame() {
   Array.from(biggerGrid.children).forEach(square => {
     Array.from(square.children).forEach(littleSquare => {
       littleSquare.classList.remove('red')
       littleSquare.classList.remove('blue')
     })
   })
-  console.log(mainGame)
-  mainGame.reset()
-  console.log(mainGame)
 }
